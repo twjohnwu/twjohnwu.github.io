@@ -1,0 +1,23 @@
+---
+import { getLocaleFromUrl } from '../i18n';
+const locale = getLocaleFromUrl(Astro.url);
+const copy = locale === 'zh-TW'
+  ? {
+      name: 'WU CHENG-YANG (John Wu)',
+      role: 'R&D Team Lead · Full Stack Engineer',
+      tagline: '十年來在政府、IoT、醫療、SaaS 不同場景交付系統。讓我印象最深的不是規模最大的那個 — 是 WiSide，2020 年跨年它記下了 113,000 多人走過台北街頭。'
+    }
+  : {
+      name: 'John Wu',
+      role: 'R&D Team Lead · Full Stack Engineer',
+      tagline: "Ten years in, I've built systems across government, IoT, healthcare, SaaS. The one that sticks with me isn't the biggest in scale — it's WiSide. On 2020's New Year's Eve, 15 of its scanners counted 113,000 people walking through Taipei."
+    };
+---
+<section class="mx-auto max-w-5xl px-6 pt-16 pb-12">
+  <h1 class="text-4xl md:text-6xl font-bold tracking-tight">{copy.name}</h1>
+  <p class="mt-3 text-lg text-brand">{copy.role}</p>
+  <p class="mt-6 max-w-2xl text-slate-600 dark:text-slate-300 leading-relaxed">{copy.tagline}</p>
+  <div class="mt-8 flex gap-3">
+    <a href="https://www.linkedin.com/in/twjohnwu/" target="_blank" rel="noopener" class="rounded-md border border-slate-300 dark:border-slate-700 px-4 py-2 text-sm">LinkedIn</a>
+  </div>
+</section>

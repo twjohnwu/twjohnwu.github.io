@@ -1,0 +1,41 @@
+---
+urlSlug: ai-code-review
+lang: zh-TW
+title: AI Code Review Platform
+company: Cedars Digital
+period: 2024-05 → Present
+tagline: Profile-driven · 跨 32 服務的 GitLab MR 自動審查（Gemini 2.5 Pro，架構支援切換 provider）
+heroMetrics:
+  - { value: 32, label: "註冊服務數" }
+  - { value: 82, label: "工程師讀完每則評論", suffix: "%" }
+  - { value: 73, label: "因 AI 評論主動改 code", suffix: "%" }
+techStack: ["TypeScript", "Gemini 2.5 Pro", "Pluggable provider (Claude-ready)", "GitLab CI", "Docker"]
+order: 2
+---
+
+## Problem
+團隊擴張後 code review 容量成為瓶頸。Senior 工程師每天花在重複型 review（命名、測試覆蓋、config 一致性）的時間排擠了架構討論。
+
+## Architecture
+```mermaid
+flowchart LR
+  MR[GitLab MR trigger] --> Loader["Profile Loader<br/>registry.yaml → system"]
+  Loader --> Standards["_shared + SaaS1/SaaS2<br/>review standards"]
+  Standards --> Composer[Prompt Composer]
+  Composer --> AI["Gemini 2.5 Pro<br/>(可切換 provider)"]
+  AI --> Reflect["Self-reflection 驗證<br/>(可選)"]
+  Reflect --> Comment[MR 評論發佈]
+```
+
+## My Role
+從 v1.0 開始設計到 v2.0 擴張：profile module、self-reflection 機制、跨 FE/BE microservices 整合。
+
+## Impact
+- v1.0 → v2.0：15 → 32 個服務
+- 11 人內部問卷：82% 讀完每則 AI 評論、73% 主動改 code
+
+## Lessons — 架構模式的 9 年復用
+2015 年在 iPanSec 的 A4P：Python subprocess 跑 MobSF + 爬取報表 → 結構化輸出。
+2024 年 AI Code Review：把 MobSF 換成 Gemini Cloud API，其餘骨架幾乎不變。
+
+工程師的長期價值，往往不在會用什麼新框架，而是知道哪個老問題現在有更好的解法。

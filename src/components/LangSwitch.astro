@@ -1,0 +1,11 @@
+---
+import { getLocaleFromUrl, t } from '../i18n';
+const locale = getLocaleFromUrl(Astro.url);
+const path = Astro.url.pathname;
+const target = locale === 'zh-TW'
+  ? '/en' + (path === '/' ? '/' : path)
+  : path.replace(/^\/en/, '') || '/';
+---
+<a href={target} class="lang-switch no-print rounded-md px-3 py-2 text-sm hover:bg-slate-200 dark:hover:bg-slate-800">
+  {t(locale, 'lang.switchTo')}
+</a>

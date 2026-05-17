@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import { getLocaleFromUrl, t } from '../i18n';
+import SideProjectCard from './SideProjectCard.astro';
+const locale = getLocaleFromUrl(Astro.url);
+const projects = (await getCollection('sideProjects', e => e.data.lang === locale))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+<section id="side-projects" class="mx-auto max-w-5xl px-6 py-16">
+  <h2 class="text-3xl font-semibold mb-8">{t(locale, 'section.sideProjects')}</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    {projects.map(p => <SideProjectCard entry={p} />)}
+  </div>
+</section>

@@ -1,0 +1,15 @@
+---
+import { getLocaleFromUrl, t } from '../i18n';
+const locale = getLocaleFromUrl(Astro.url);
+const year = new Date().getFullYear();
+---
+<footer class="mt-24 border-t border-slate-200 dark:border-slate-800 py-8 text-sm text-slate-500">
+  <div class="mx-auto max-w-5xl px-6 flex flex-col md:flex-row gap-4 justify-between items-center">
+    <span class="print-footer">© {year} John Wu · {t(locale, 'footer.generated')}</span>
+    <div class="flex gap-4">
+      <a href="https://www.linkedin.com/in/twjohnwu/" rel="me noopener" target="_blank">LinkedIn</a>
+      <a href="mailto:tw.johnwu@gmail.com">Email</a>
+      <a href="https://github.com/twjohnwu" rel="me noopener" target="_blank">GitHub</a>
+    </div>
+  </div>
+</footer>

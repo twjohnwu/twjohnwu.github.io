@@ -1,0 +1,41 @@
+---
+urlSlug: ai-code-review
+lang: en
+title: AI Code Review Platform
+company: Cedars Digital
+period: May 2024 – Present
+tagline: Profile-driven MR review across 32 GitLab services — Gemini 2.5 Pro on a pluggable provider layer
+heroMetrics:
+  - { value: 32, label: "Registered services" }
+  - { value: 82, label: "Engineers reading every comment", suffix: "%" }
+  - { value: 73, label: "Engineers changing code from AI", suffix: "%" }
+techStack: ["TypeScript", "Gemini 2.5 Pro", "Pluggable provider (Claude-ready)", "GitLab CI", "Docker"]
+order: 2
+---
+
+## Problem
+As the team grew, code review throughput became a bottleneck. Senior engineers spent their best hours on the predictable parts (naming, test coverage, config drift) instead of architecture.
+
+## Architecture
+```mermaid
+flowchart LR
+  MR[GitLab MR trigger] --> Loader["Profile Loader<br/>registry.yaml → system"]
+  Loader --> Standards["_shared + SaaS1/SaaS2<br/>review standards"]
+  Standards --> Composer[Prompt Composer]
+  Composer --> AI["Gemini 2.5 Pro<br/>(pluggable provider)"]
+  AI --> Reflect["Self-reflection validation<br/>(optional)"]
+  Reflect --> Comment[Post MR comment]
+```
+
+## My Role
+From v1.0 design through v2.0 expansion: profile module, the self-reflection pass, and the cross-microservice rollout.
+
+## Impact
+- v1.0 → v2.0: 15 → 32 services
+- Internal survey of 11: 82% read every AI comment, 73% changed code based on it
+
+## Lessons — A 9-year architecture lineage
+2015 at iPanSec — A4P: Python subprocess running MobSF, web crawler scraping the report → structured output.
+2024 at Cedars — AI Code Review: replace MobSF with Gemini API; the rest of the skeleton barely changed.
+
+A senior engineer's long-term value isn't the new framework they can name. It's recognizing which old problem just got a better solution.

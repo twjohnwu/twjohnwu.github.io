@@ -1,0 +1,28 @@
+---
+import { getLocaleFromUrl } from '../i18n';
+const locale = getLocaleFromUrl(Astro.url);
+const labels = locale === 'zh-TW'
+  ? { fe: '前端', be: '後端', ops: 'DevOps / Cloud', tools: '工具與實踐' }
+  : { fe: 'Frontend', be: 'Backend', ops: 'DevOps / Cloud', tools: 'Tools & Practices' };
+const groups = [
+  { key: 'fe', items: ['JavaScript', 'Vue.js 2.0', 'HTML5', 'CSS3', 'Bootstrap'] },
+  { key: 'be', items: ['Node.js (Nest.js)', 'PHP (Laravel 5–6)', 'ASP.NET (C#)', 'PostgreSQL', 'MySQL', 'Redis', 'MongoDB'] },
+  { key: 'ops', items: ['Docker', 'Kubernetes', 'Terraform', 'GCP', 'AWS', 'Azure', 'Ubuntu LTS'] },
+  { key: 'tools', items: ['Git', 'GitLab CI/CD', 'Code Review', 'Agile/Scrum', 'System Design', 'OpenAPI v3.0'] }
+];
+---
+<section id="skills" class="mx-auto max-w-5xl px-6 py-16">
+  <h2 class="text-3xl font-semibold mb-8">Technical Skills</h2>
+  <div class="grid md:grid-cols-2 gap-8">
+    {groups.map(g => (
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-3">{labels[g.key as keyof typeof labels]}</h3>
+        <div class="flex flex-wrap gap-2">
+          {g.items.map(s => (
+            <span class="rounded-md border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-xs">{s}</span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

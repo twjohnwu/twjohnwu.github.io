@@ -1,0 +1,55 @@
+---
+urlSlug: wiside
+lang: en
+title: WiSide — Crowd Intelligence Platform
+company: Taiwan Data Science Co.
+period: Aug 2018 – Mar 2022
+tagline: Owned application + output layers — 300+ scanners deployed across Taiwan
+heroMetrics:
+  - { value: 113000, label: "NYE 2020 attendees detected" }
+  - { value: 300, label: "Scanners deployed", suffix: "+" }
+  - { value: 22, label: "Industry exhibitions", suffix: "+" }
+techStack: ["Laravel", "Vue.js", "ELK", "Edge sensors"]
+order: 1
+---
+
+## Problem
+Cities running large outdoor events needed real-time, privacy-friendly crowd estimates. Traditional CCTV counting is expensive and slow to deploy. We had to count people at scale without collecting personal data.
+
+## Architecture
+```mermaid
+flowchart LR
+  subgraph Edge[Edge layer]
+    Sensors[Edge Wi-Fi scanners x314+]
+  end
+  subgraph Storage[Storage layer]
+    LS[Logstash ingest]
+    ES[(Elasticsearch)]
+    KB[Kibana]
+  end
+  subgraph App[Application layer]
+    Web["WiSide site<br/>Laravel + Vue.js"]
+  end
+  subgraph Out[Output]
+    Dash[Real-time dashboard]
+    Rep[Event report]
+  end
+  Sensors -->|MAC hash| LS
+  LS --> ES
+  ES --> KB
+  ES --> Web
+  Web --> Dash
+  Web --> Rep
+```
+
+## My Role
+Owned the Laravel + Vue.js management backend and the real-time dashboard / event-report output layer. Worked with the edge-hardware and ELK pipeline teams to pin the query contract up front so hardware iterations didn't cascade into backend rewrites; designed the data view model for multiple events running in parallel.
+
+## Impact
+- Taipei City NYE 2020 — 15 scanners, 113,000 attendees detected
+- 2019 political rally — 20 scanners, 55,000 attendees detected
+- 300+ scanners deployed by Sept 2021
+- Featured at 22+ industry exhibitions
+
+## Lessons
+I owned WiSide's application layer (Laravel + Vue.js admin) and output layer (real-time dashboard + event reports) solo; edge scanners and the ELK pipeline were team work. Working at the boundary between layers — without control over either side — forced a discipline I've kept since: define the interface contracts first, and let both sides evolve against the contract rather than against each other. Scanner protocol and ELK query schema were versioned independently; when the ELK team later upgraded the server, the changes were absorbed at the interface layer without touching application logic. Owning two layers alone, without owning the layers above or below, is where I learned to design for change rather than design for now.

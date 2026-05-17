@@ -1,0 +1,21 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import LangSwitch from './LangSwitch.astro';
+import { getLocaleFromUrl, t } from '../i18n';
+const locale = getLocaleFromUrl(Astro.url);
+const home = locale === 'zh-TW' ? '/' : '/en/';
+---
+<header class="sticky top-0 z-40 backdrop-blur bg-white/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 no-print">
+  <nav class="mx-auto max-w-5xl px-6 h-14 flex items-center justify-between">
+    <a href={home} class="font-semibold">John Wu</a>
+    <div class="hidden md:flex gap-6 text-sm">
+      <a href={`${home}#about`}>{t(locale, 'nav.about')}</a>
+      <a href={`${home}#experience`}>{t(locale, 'nav.experience')}</a>
+      <a href={`${home}#cases`}>{t(locale, 'nav.cases')}</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <LangSwitch />
+      <ThemeToggle />
+    </div>
+  </nav>
+</header>

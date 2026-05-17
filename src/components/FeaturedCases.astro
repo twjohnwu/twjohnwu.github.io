@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import { getLocaleFromUrl } from '../i18n';
+import CaseCard from './CaseCard.astro';
+const locale = getLocaleFromUrl(Astro.url);
+const cases = (await getCollection('cases', e => e.data.lang === locale))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+<section id="cases" class="mx-auto max-w-5xl px-6 py-16">
+  <h2 class="text-3xl font-semibold mb-8">Featured Work</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    {cases.map(c => <CaseCard entry={c} />)}
+  </div>
+</section>

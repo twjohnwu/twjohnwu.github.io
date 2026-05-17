@@ -1,0 +1,14 @@
+---
+urlSlug: cedars-lead
+lang: en
+company: Cedars Digital
+title: R&D Team Lead
+period: May 2024 – Present
+location: Taipei
+order: 1
+bullets:
+  - Led an R&D team through the company's v2.0 platform rewrite; peaked at 12 engineers (FE, BE, Singapore remote) across multiple reorgs, recruited 3 frontend engineers in 2024 — each reorg meant rebuilding rhythms from scratch, the team kept shipping.
+  - Owned the supply chain product line — milestone planning with the PO, sitemap and flowcharts, OpenAPI v3.0 specs, integration coordination with two other product lines. Introduced Specification-Driven Development (SDD) with the software development manager — engineers wrote their own specs, then used Claude Code to generate dev docs, tasks, and implementation; velocity rose enough that the bottleneck shifted upstream to spec-writing.
+  - Built an AI code review system into GitLab CI/CD — each repo sets `SERVICE_NAME` in pipeline config; a profile-loader maps it via `registry.yaml` to the right system profile, then composes shared + system-specific review standards into a prompt. No TypeScript changes needed to onboard a new service — just yaml. Calls Gemini API (provider-switchable via env config) with a self-reflection pass; deployed across 32 microservices repos. Internal survey showed the majority of engineers read every AI comment and changed code before merging.
+  - Built an RD Guide Book on Google Docs — v1.0 / v2.0 product info, system architecture, environment setup, internal tech shares, all in one place. Started as a way to stop answering the same onboarding questions; new engineers actually rely on it now.
+---

@@ -1,0 +1,30 @@
+---
+import StatsCounter from './StatsCounter.vue';
+import { getLocaleFromUrl } from '../i18n';
+const locale = getLocaleFromUrl(Astro.url);
+const items = locale === 'zh-TW'
+  ? [
+      { value: 113000, label: '2020 跨年偵測人次' },
+      { value: 300, suffix: '+', label: 'WiSide 部署 scanners' },
+      { value: 12, label: '團隊峰值人數' },
+      { value: 23, label: 'AI Code Review 部署 repos' }
+    ]
+  : [
+      { value: 113000, label: 'NYE 2020 attendees detected' },
+      { value: 300, suffix: '+', label: 'WiSide scanners deployed' },
+      { value: 12, label: 'Peak team size' },
+      { value: 23, label: 'Repos with AI code review' }
+    ];
+---
+<section id="stats" class="mx-auto max-w-5xl px-6 py-16">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+    {items.map(it => (
+      <div>
+        <div class="text-3xl md:text-4xl font-bold text-brand">
+          <StatsCounter client:visible value={it.value} suffix={it.suffix} />
+        </div>
+        <div class="mt-2 text-sm text-slate-500">{it.label}</div>
+      </div>
+    ))}
+  </div>
+</section>

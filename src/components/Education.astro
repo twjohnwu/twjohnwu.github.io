@@ -1,0 +1,23 @@
+---
+import { getLocaleFromUrl } from '../i18n';
+const locale = getLocaleFromUrl(Astro.url);
+const heading = locale === 'zh-TW' ? '學歷與證照' : 'Education & Certifications';
+const eduText = locale === 'zh-TW'
+  ? '華梵大學 資訊管理系（資訊安全學程）2008–2012'
+  : "B.S. Management Information Systems, Huafan University (2008–2012) — Information Security Program";
+const honors = locale === 'zh-TW'
+  ? ['PKI 創新競賽 第一名（2010）', 'PKI 創新競賽 第二名（2012）']
+  : ['PKI Innovation Competition — 1st Place (2010)', 'PKI Innovation Competition — 2nd Place (2012)'];
+const certs = ['AWS Certified Cloud Practitioner (2023–2028)', 'TOEIC 740 / TutorABC Lv.12', 'ISO 20000-1:2011', 'ISO 27001:2005'];
+---
+<section id="education" class="mx-auto max-w-5xl px-6 py-16">
+  <h2 class="text-3xl font-semibold mb-6">{heading}</h2>
+  <p class="text-slate-700 dark:text-slate-300">{eduText}</p>
+  <ul class="mt-4 list-disc pl-5 text-sm text-slate-600 dark:text-slate-400 space-y-1">
+    {honors.map(h => <li>{h}</li>)}
+  </ul>
+  <h3 class="mt-6 text-sm font-semibold uppercase tracking-wider text-slate-500">Certifications</h3>
+  <ul class="mt-2 flex flex-wrap gap-2">
+    {certs.map(c => <li class="rounded-md border border-slate-300 dark:border-slate-700 px-2.5 py-1 text-xs">{c}</li>)}
+  </ul>
+</section>

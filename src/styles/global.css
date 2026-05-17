@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 255 255 255;
+    --fg: 15 23 42;
+    --muted: 100 116 139;
+  }
+  .dark {
+    --bg: 2 6 23;
+    --fg: 226 232 240;
+    --muted: 148 163 184;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--fg));
+    font-family: theme('fontFamily.sans');
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+}

@@ -1,0 +1,11 @@
+@media print {
+  nav, .no-print, .theme-toggle, .lang-switch, .download-btn { display: none !important; }
+  body { background: white !important; color: black !important; }
+  @page { size: A4; margin: 1.5cm; }
+  body { font-size: 11pt; }
+  .timeline-item, .case-card { break-inside: avoid; }
+  a::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
+  .print-footer::after {
+    content: "Generated from twjohnwu.github.io";
+  }
+}
