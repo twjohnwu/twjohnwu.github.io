@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { getLocaleFromUrl } from '../i18n';
+import { getLocaleFromUrl, t } from '../i18n';
 const locale = getLocaleFromUrl(Astro.url);
 const all = await getCollection('experience', e => e.data.lang === locale);
 const items = all.sort((a, b) => a.data.order - b.data.order);
@@ -19,7 +19,163 @@ const items = all.sort((a, b) => a.data.order - b.data.order);
         <ul class="mt-3 space-y-2 text-slate-700 dark:text-slate-300 text-sm leading-relaxed list-disc pl-5">
           {item.data.bullets.map(b => <li>{b}</li>)}
         </ul>
+        {item.data.images && item.data.images.length > 0 && (
+          <>
+            <div class="mt-4 flex flex-wrap gap-3">
+              {item.data.images.map((img, idx) => (
+                <button
+                  type="button"
+                  class="gallery-thumb group block overflow-hidden rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                  data-gallery={item.data.urlSlug}
+                  data-index={idx}
+                  aria-label={img.caption ?? img.alt}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-24 w-auto object-cover group-hover:opacity-90"
+                  />
+                </button>
+              ))}
+            </div>
+            <script
+              type="application/json"
+              data-gallery-data={item.data.urlSlug}
+              set:html={JSON.stringify(item.data.images)}
+            />
+          </>
+        )}
       </li>
     ))}
   </ol>
+
+  <dialog
+    id="lightbox"
+    class="backdrop:bg-black/70 bg-transparent p-0 max-w-[95vw] max-h-[95vh] w-auto h-auto"
+    aria-label="Image viewer"
+  >
+    <figure class="relative m-0 flex flex-col items-center">
+      <img
+        id="lightbox-img"
+        src=""
+        alt=""
+        class="max-w-[95vw] max-h-[85vh] object-contain rounded-md shadow-xl bg-slate-900"
+      />
+      <figcaption
+        id="lightbox-caption"
+        class="mt-2 text-center text-sm text-white/90 px-3 py-1 bg-black/40 rounded"
+      ></figcaption>
+      <button
+        type="button"
+        id="lightbox-close"
+        class="absolute -top-3 -right-3 h-9 w-9 rounded-full bg-white text-slate-900 shadow flex items-center justify-center text-xl font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+        aria-label={t(locale, 'lightbox.close')}
+      >×</button>
+      <button
+        type="button"
+        id="lightbox-prev"
+        class="hidden absolute left-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/90 text-slate-900 shadow items-center justify-center text-xl font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+        aria-label={t(locale, 'lightbox.prev')}
+      >‹</button>
+      <button
+        type="button"
+        id="lightbox-next"
+        class="hidden absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-white/90 text-slate-900 shadow items-center justify-center text-xl font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+        aria-label={t(locale, 'lightbox.next')}
+      >›</button>
+    </figure>
+  </dialog>
 </section>
+
+<style>
+  #lightbox-prev,
+  #lightbox-next {
+    display: none;
+  }
+  #lightbox[data-multi="true"] #lightbox-prev,
+  #lightbox[data-multi="true"] #lightbox-next {
+    display: flex;
+  }
+</style>
+
+<script>
+  type GalleryImage = { src: string; alt: string; caption?: string };
+
+  const dialog = document.getElementById('lightbox') as HTMLDialogElement | null;
+  const imgEl = document.getElementById('lightbox-img') as HTMLImageElement | null;
+  const captionEl = document.getElementById('lightbox-caption');
+  const closeBtn = document.getElementById('lightbox-close');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+
+  if (dialog && imgEl && captionEl && closeBtn && prevBtn && nextBtn) {
+    let current: GalleryImage[] = [];
+    let index = 0;
+    let lastTrigger: HTMLElement | null = null;
+
+    const render = () => {
+      const item = current[index];
+      if (!item) return;
+      imgEl.src = item.src;
+      imgEl.alt = item.alt;
+      captionEl.textContent = item.caption ?? '';
+      captionEl.classList.toggle('hidden', !item.caption);
+      dialog.dataset.multi = current.length > 1 ? 'true' : 'false';
+    };
+
+    const openFor = (slug: string, startIdx: number, trigger: HTMLElement) => {
+      const dataEl = document.querySelector<HTMLScriptElement>(
+        `script[data-gallery-data="${slug}"]`
+      );
+      if (!dataEl?.textContent) return;
+      try {
+        current = JSON.parse(dataEl.textContent) as GalleryImage[];
+      } catch {
+        return;
+      }
+      index = Math.max(0, Math.min(startIdx, current.length - 1));
+      lastTrigger = trigger;
+      render();
+      if (!dialog.open) dialog.showModal();
+    };
+
+    document.querySelectorAll<HTMLButtonElement>('.gallery-thumb').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const slug = btn.dataset.gallery;
+        const idx = Number(btn.dataset.index ?? 0);
+        if (slug) openFor(slug, idx, btn);
+      });
+    });
+
+    const step = (delta: number) => {
+      if (!current.length) return;
+      index = (index + delta + current.length) % current.length;
+      render();
+    };
+
+    prevBtn.addEventListener('click', () => step(-1));
+    nextBtn.addEventListener('click', () => step(1));
+    closeBtn.addEventListener('click', () => dialog.close());
+
+    dialog.addEventListener('click', event => {
+      if (event.target === dialog) dialog.close();
+    });
+
+    dialog.addEventListener('close', () => {
+      lastTrigger?.focus();
+    });
+
+    document.addEventListener('keydown', event => {
+      if (!dialog.open) return;
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        step(-1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        step(1);
+      }
+    });
+  }
+</script>

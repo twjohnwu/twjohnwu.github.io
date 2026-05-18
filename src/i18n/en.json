@@ -7,5 +7,8 @@
   "cta.viewRepo": "View on GitHub",
   "section.sideProjects": "Side Projects",
   "footer.generated": "Generated from twjohnwu.github.io",
-  "lang.switchTo": "繁體中文"
+  "lang.switchTo": "繁體中文",
+  "lightbox.close": "Close",
+  "lightbox.prev": "Previous",
+  "lightbox.next": "Next"
 }

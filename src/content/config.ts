@@ -12,6 +12,11 @@ const experience = defineCollection({
     period: z.string(),
     location: z.string().optional(),
     bullets: z.array(z.string()),
+    images: z.array(z.object({
+      src: z.string(),
+      alt: z.string(),
+      caption: z.string().optional()
+    })).optional(),
     order: z.number()
   })
 });
