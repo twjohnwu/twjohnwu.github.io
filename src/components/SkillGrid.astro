@@ -2,13 +2,14 @@
 import { getLocaleFromUrl } from '../i18n';
 const locale = getLocaleFromUrl(Astro.url);
 const labels = locale === 'zh-TW'
-  ? { fe: '前端', be: '後端', ops: 'DevOps / Cloud', tools: '工具與實踐' }
-  : { fe: 'Frontend', be: 'Backend', ops: 'DevOps / Cloud', tools: 'Tools & Practices' };
+  ? { be: '後端', ai: 'AI / LLM', fe: '前端', ops: 'DevOps / Cloud', tools: '工具與實踐' }
+  : { be: 'Backend', ai: 'AI / LLM', fe: 'Frontend', ops: 'DevOps / Cloud', tools: 'Tools & Practices' };
 const groups = [
-  { key: 'fe', items: ['JavaScript', 'Vue.js 2.0', 'HTML5', 'CSS3', 'Bootstrap'] },
-  { key: 'be', items: ['Node.js (Nest.js)', 'PHP (Laravel 5–6)', 'ASP.NET (C#)', 'PostgreSQL', 'MySQL', 'Redis', 'MongoDB'] },
-  { key: 'ops', items: ['Docker', 'Kubernetes', 'Terraform', 'GCP', 'AWS', 'Azure', 'Ubuntu LTS'] },
-  { key: 'tools', items: ['Git', 'GitLab CI/CD', 'Code Review', 'Agile/Scrum', 'System Design', 'OpenAPI v3.0'] }
+  { key: 'be', items: ['Node.js (NestJS)', 'TypeScript', 'RESTful API', 'Microservices', 'PHP (Laravel)', 'ASP.NET (C#)', 'PostgreSQL', 'MySQL', 'Redis'] },
+  { key: 'ai', items: ['LLM Integration', 'Prompt Engineering', 'Gemini API', 'Claude Code', 'AI Code Review', 'SDD'] },
+  { key: 'fe', items: ['JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Astro'] },
+  { key: 'ops', items: ['Docker', 'Kubernetes (K8s/K9s operations)', 'Terraform (IaC)', 'GitLab CI/CD', 'GitHub Actions', 'GCP', 'AWS', 'Azure'] },
+  { key: 'tools', items: ['Git', 'Code Review', 'Agile/Scrum', 'System Design', 'OpenAPI v3.0', 'Cross-functional Collaboration'] }
 ];
 ---
 <section id="skills" class="mx-auto max-w-5xl px-6 py-16">

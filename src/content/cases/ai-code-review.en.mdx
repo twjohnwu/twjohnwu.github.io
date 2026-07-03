@@ -4,12 +4,12 @@ lang: en
 title: AI Code Review Platform
 company: Cedars Digital
 period: May 2024 – Present
-tagline: Profile-driven MR review across 32 GitLab services — Gemini 2.5 Pro on a pluggable provider layer
+tagline: Profile-driven MR review across 32 GitLab services — LLM-powered on a pluggable provider layer
 heroMetrics:
   - { value: 32, label: "Registered services" }
-  - { value: 82, label: "Engineers reading every comment", suffix: "%" }
   - { value: 73, label: "Engineers changing code from AI", suffix: "%" }
-techStack: ["TypeScript", "Gemini 2.5 Pro", "Pluggable provider (Claude-ready)", "GitLab CI", "Docker"]
+  - { value: 9, label: "Years of architecture reuse", suffix: "+" }
+techStack: ["TypeScript", "LLM API (pluggable provider)", "GitLab CI", "Docker"]
 order: 2
 ---
 
@@ -19,10 +19,10 @@ As the team grew, code review throughput became a bottleneck. Senior engineers s
 ## Architecture
 ```mermaid
 flowchart LR
-  MR[GitLab MR trigger] --> Loader["Profile Loader<br/>registry.yaml → system"]
-  Loader --> Standards["_shared + SaaS1/SaaS2<br/>review standards"]
+  MR[GitLab MR trigger] --> Loader["Profile Loader<br/>Service Registry"]
+  Loader --> Standards["shared + system-specific<br/>review standards"]
   Standards --> Composer[Prompt Composer]
-  Composer --> AI["Gemini 2.5 Pro<br/>(pluggable provider)"]
+  Composer --> AI["LLM Provider<br/>(pluggable)"]
   AI --> Reflect["Self-reflection validation<br/>(optional)"]
   Reflect --> Comment[Post MR comment]
 ```
@@ -32,7 +32,7 @@ From v1.0 design through v2.0 expansion: profile module, the self-reflection pas
 
 ## Impact
 - v1.0 → v2.0: 15 → 32 services
-- Internal survey of 11: 82% read every AI comment, 73% changed code based on it
+- Two internal survey rounds showed 73% of engineers change code on its suggestions before merging, with reliance growing each iteration
 
 ## Lessons — A 9-year architecture lineage
 2015 at iPanSec — A4P: Python subprocess running MobSF, web crawler scraping the report → structured output.

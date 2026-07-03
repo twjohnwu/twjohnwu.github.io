@@ -7,8 +7,9 @@ period: 2024-05 → Present
 location: 台北
 order: 1
 bullets:
-  - 帶領研發團隊推進 v2.0 平台重寫；多次組織重整中高峰 12 人（FE / BE / Singapore remote），2024 招募 3 名前端工程師，每次轉型維持交付節奏。
-  - 負責供應鏈產品線：與 PO 共同規劃 milestone、設計 sitemap 與流程圖、撰寫 OpenAPI v3.0 規格、協調與兩條產品線整合；與軟體開發經理共同導入 SDD — 工程師各自撰寫規格再透過 Claude Code 生成開發文件與實作，瓶頸反而前移到規格撰寫端。
-  - 打造整合進 GitLab CI/CD 的 AI Code Review — 每個 repo 在 pipeline 設 `SERVICE_NAME`，profile-loader 透過 `registry.yaml` 對應 system profile，組合 shared 與 system-specific review standards 成 prompt；新服務導入只需更新 yaml，不需改 TypeScript。透過 Gemini API 運作（架構支援切換 provider），加入 self-reflection 流程；現部署於 32 個微服務 repo，內部調查顯示多數工程師讀完每則評論並在合併前主動改 code。
-  - 在 Google Docs 建立 RD Guide Book — 整合 v1.0 / v2.0 產品資訊、系統架構、開發環境設定、內部技術分享，從減少重複 onboarding 問題演變為新進工程師實際依賴的資源。
+  - 帶領研發團隊推進 v2.0 平台重寫；歷經多次組織重整、團隊規模在 5–12 人間變動（FE / BE / Singapore remote），2024 招募 3 名前端工程師，每次轉型維持交付節奏，現以「全員全端」為方向培育團隊。
+  - 於 v2.0 重寫中負責供應鏈管理系統後端開發：與 PO 共同規劃 milestone、設計 sitemap 與流程圖，以 OpenAPI v3.0 介面契約與團隊前端及另外兩條產品線的前後端工程師整合；與軟體開發經理共同導入 SDD — 工程師各自撰寫規格再透過 Claude Code 生成開發文件與實作，瓶頸反而前移到規格撰寫端。
+  - 打造整合進 GitLab CI/CD 的 AI Code Review — config-driven 架構，組合 shared 與 system-specific review standards 成 prompt，新服務以設定檔註冊即可上線、零程式碼變更。透過 Gemini API 運作（架構支援切換 provider），v2.0 加入 self-reflection 流程並自 15 個 repo 擴展至 32 個；兩輪內部問卷顯示 73% 工程師依建議在合併前改 code，對流程的依賴度隨迭代上升。
+  - 擔任年度 IaC 計畫召集人，將 GCP 現行架構轉寫為 Terraform 並納入 GitLab 版控。
+  - 建立內部工程知識庫 — 整合 onboarding、系統架構、環境設定與內部技術分享，從減少重複提問演變為新進工程師實際依賴的資源。
 ---
