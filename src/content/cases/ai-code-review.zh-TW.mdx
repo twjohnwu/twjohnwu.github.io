@@ -4,10 +4,10 @@ lang: zh-TW
 title: AI Code Review Platform
 company: Cedars Digital
 period: 2024-05 → Present
-tagline: Profile-driven · 跨 28 個服務 main pipeline 的 GitLab MR 自動審查（LLM 驅動，架構支援切換 provider）
+tagline: Profile-driven · 跨多個服務 main pipeline 的 GitLab MR 自動審查（LLM 驅動，架構支援切換 provider）
 heroMetrics:
-  - { value: 28, label: "main pipeline 接入服務數" }
-  - { value: 73, label: "因 AI 評論主動改 code", suffix: "%" }
+  - { value: 0, label: "新服務接入所需程式碼變更" }
+  - { value: 2, label: "內部問卷輪數" }
   - { value: 9, label: "架構模式復用年數", suffix: "+" }
 techStack: ["TypeScript", "LLM API (pluggable provider)", "GitLab CI", "Docker"]
 order: 2
@@ -31,11 +31,11 @@ flowchart LR
 從 v1.0 開始設計到 v2.0 擴張：profile module、self-reflection 機制、跨 FE/BE microservices 整合。
 
 ## Impact
-- v1.0 → v2.0：15 → 28 個服務 main pipeline 接入（另 40 個已註冊）
-- 兩輪內部問卷顯示 73% 工程師依建議在合併前改 code，對流程的依賴度隨迭代上升
+- v1.0 → v2.0：自初期部署擴展至多個前後端微服務的 main pipeline
+- 兩輪內部問卷顯示多數工程師依建議在合併前改 code，對流程的依賴度隨迭代上升
 
 ## Lessons — 架構模式的 9 年復用
 2015 年在 iPanSec 的 A4P：Python subprocess 跑 MobSF + 爬取報表 → 結構化輸出。
-2024 年 AI Code Review：把 MobSF 換成 Gemini Cloud API，其餘骨架幾乎不變。
+2024 年 AI Code Review：把 MobSF 換成 LLM API，其餘骨架幾乎不變。
 
 工程師的長期價值，往往不在會用什麼新框架，而是知道哪個老問題現在有更好的解法。

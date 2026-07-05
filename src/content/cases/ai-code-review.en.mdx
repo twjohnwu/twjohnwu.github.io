@@ -4,10 +4,10 @@ lang: en
 title: AI Code Review Platform
 company: Cedars Digital
 period: May 2024 – Present
-tagline: Profile-driven MR review across 28 GitLab services' main pipelines — LLM-powered on a pluggable provider layer
+tagline: Profile-driven MR review across GitLab microservices' main pipelines — LLM-powered on a pluggable provider layer
 heroMetrics:
-  - { value: 28, label: "Services on main pipelines" }
-  - { value: 73, label: "Engineers changing code from AI", suffix: "%" }
+  - { value: 0, label: "Code changes to onboard a service" }
+  - { value: 2, label: "Internal survey rounds" }
   - { value: 9, label: "Years of architecture reuse", suffix: "+" }
 techStack: ["TypeScript", "LLM API (pluggable provider)", "GitLab CI", "Docker"]
 order: 2
@@ -31,11 +31,11 @@ flowchart LR
 From v1.0 design through v2.0 expansion: profile module, the self-reflection pass, and the cross-microservice rollout.
 
 ## Impact
-- v1.0 → v2.0: 15 → 28 services integrated on main pipelines (40 registered)
-- Two internal survey rounds showed 73% of engineers change code on its suggestions before merging, with reliance growing each iteration
+- v1.0 → v2.0: expanded from the initial rollout to frontend and backend microservices across main pipelines
+- Two internal survey rounds showed most engineers change code on its suggestions before merging, with reliance growing each iteration
 
 ## Lessons — A 9-year architecture lineage
 2015 at iPanSec — A4P: Python subprocess running MobSF, web crawler scraping the report → structured output.
-2024 at Cedars — AI Code Review: replace MobSF with Gemini API; the rest of the skeleton barely changed.
+2024 at Cedars — AI Code Review: replace MobSF with an LLM API; the rest of the skeleton barely changed.
 
 A senior engineer's long-term value isn't the new framework they can name. It's recognizing which old problem just got a better solution.
