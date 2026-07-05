@@ -4,9 +4,9 @@ lang: zh-TW
 title: AI Code Review Platform
 company: Cedars Digital
 period: 2024-05 → Present
-tagline: Profile-driven · 跨 32 服務的 GitLab MR 自動審查（LLM 驅動，架構支援切換 provider）
+tagline: Profile-driven · 跨 28 個服務 main pipeline 的 GitLab MR 自動審查（LLM 驅動，架構支援切換 provider）
 heroMetrics:
-  - { value: 32, label: "註冊服務數" }
+  - { value: 28, label: "main pipeline 接入服務數" }
   - { value: 73, label: "因 AI 評論主動改 code", suffix: "%" }
   - { value: 9, label: "架構模式復用年數", suffix: "+" }
 techStack: ["TypeScript", "LLM API (pluggable provider)", "GitLab CI", "Docker"]
@@ -31,7 +31,7 @@ flowchart LR
 從 v1.0 開始設計到 v2.0 擴張：profile module、self-reflection 機制、跨 FE/BE microservices 整合。
 
 ## Impact
-- v1.0 → v2.0：15 → 32 個服務
+- v1.0 → v2.0：15 → 28 個服務 main pipeline 接入（另 40 個已註冊）
 - 兩輪內部問卷顯示 73% 工程師依建議在合併前改 code，對流程的依賴度隨迭代上升
 
 ## Lessons — 架構模式的 9 年復用
