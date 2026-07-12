@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getLocaleFromUrl, t } from '../i18n';
+import { renderInlineCode } from '../utils/inlineCode';
 export interface Props { entry: CollectionEntry<'cases'>; }
 const { entry } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
@@ -8,7 +9,7 @@ const href = (locale === 'zh-TW' ? '/case/' : '/en/case/') + entry.data.urlSlug 
 ---
 <a href={href} class="case-card block rounded-lg border border-slate-200 dark:border-slate-800 p-6 hover:border-brand transition-colors">
   <h3 class="text-xl font-semibold">{entry.data.title}</h3>
-  <p class="mt-2 text-sm text-slate-500">{entry.data.tagline}</p>
+  <p class="mt-2 text-sm text-slate-500" set:html={renderInlineCode(entry.data.tagline)} />
   <div class="mt-4 flex flex-wrap gap-2">
     {entry.data.techStack.slice(0, 4).map((s: string) => (
       <span class="rounded bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-xs">{s}</span>

@@ -3,6 +3,7 @@ import Base from './Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import type { CollectionEntry } from 'astro:content';
+import { renderInlineCode } from '../utils/inlineCode';
 
 export interface Props { entry: CollectionEntry<'cases'>; }
 const { entry } = Astro.props;
@@ -13,7 +14,7 @@ const { Content } = await entry.render();
   <main class="mx-auto max-w-3xl px-6 py-12">
     <p class="text-sm text-slate-500">{entry.data.company} · {entry.data.period}</p>
     <h1 class="mt-2 text-4xl font-bold">{entry.data.title}</h1>
-    <p class="mt-4 text-lg text-slate-600 dark:text-slate-300">{entry.data.tagline}</p>
+    <p class="mt-4 text-lg text-slate-600 dark:text-slate-300" set:html={renderInlineCode(entry.data.tagline)} />
     <div class="mt-8 grid grid-cols-2 md:grid-cols-3 gap-6 border-y border-slate-200 dark:border-slate-800 py-6">
       {entry.data.heroMetrics.map(m => (
         <div>
