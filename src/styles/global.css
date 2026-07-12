@@ -19,6 +19,19 @@
     color: rgb(var(--fg));
     font-family: theme('fontFamily.sans');
   }
+  :not(pre) > code {
+    background-color: rgb(241 245 249);
+    padding: 0.15em 0.35em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+  }
+  :not(pre) > code::before,
+  :not(pre) > code::after {
+    content: "" !important;
+  }
+  .dark :not(pre) > code {
+    background-color: rgb(30 41 59);
+  }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
