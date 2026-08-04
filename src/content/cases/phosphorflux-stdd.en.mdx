@@ -1,0 +1,43 @@
+---
+urlSlug: phosphorflux-stdd
+lang: en
+title: Spec-Test-Driven Development with Agent Orchestration
+company: Personal side project
+period: 2026-07
+tagline: A themed Claude Code statusline built end-to-end with a spec-first, test-driven, agent-orchestrated process — the full trail published, warts included
+heroMetrics:
+  - { value: 441, label: "tests passing" }
+  - { value: 3, label: "days to npm" }
+  - { value: 97, label: "test files" }
+techStack: ["TypeScript", "React", "Ink", "ajv", "vitest", "tsup", "npm"]
+order: 5
+---
+
+## Problem
+The common failure mode of AI-assisted development isn't that the code doesn't work — it's that nobody, including the person who "wrote" it, can say why it works or what it was checked against. Vibe coding leaves no trail: no spec to point at, no test that was red before it was green, just a claim of "should be fine now."
+
+## Method
+Spec-Test-Driven Development (STDD) runs every change through five stages: **explore → spec → plan → execute → verify**. Two mechanisms make the trail auditable rather than decorative. First, spec-first: every requirement gets a stable REQ/S ID before any code exists, so a test can cite exactly which requirement it proves. Second, the execute stage itself splits into RED → GREEN/REFACTOR, run by two separated agents — a builder that writes the failing test and then the implementation, and an independent verifier that re-checks the result against the spec IDs rather than against the builder's own summary.
+
+```mermaid
+flowchart LR
+  Explore --> Spec
+  Spec --> Plan
+  Plan --> Execute
+  Execute --> Verify
+  subgraph Execute
+    direction LR
+    RED["Builder: RED<br/>(failing test)"] --> GREEN["Builder: GREEN/REFACTOR<br/>(implementation)"]
+    GREEN --> VER["Independent Verifier"]
+  end
+```
+
+## Results
+phosphorflux went from an empty repo to a published `v1.1.0` on npm. The suite sits at 441 tests across 97 files, all green, and the test code (10.9k LOC) outweighs the source it tests (8.4k LOC). Bilingual docs and CI are in place. Elapsed time end-to-end: three days. The full STDD trail — specs, plans, execution ledgers — is published at [github.com/twjohnwu/phosphorflux/tree/main/docs/tlor-stdd](https://github.com/twjohnwu/phosphorflux/tree/main/docs/tlor-stdd).
+
+## Limits
+This is not a "three days from nothing" claim and it shouldn't be read as one. The three days presuppose an orchestration framework and STDD skills that already existed going in — the time spent building that framework isn't in the three days, and pretending otherwise would misrepresent the number.
+
+The token cost is the real price of this process, and it's worth saying plainly rather than glossing over: running separated builder/verifier agents through five stages per change burns meaningfully more tokens than writing the code directly. The mitigation direction — not yet landed — is a token-reduction proposal sitting inside `docs/tlor-stdd/` in the same repo.
+
+The repo itself has only six git commits. The actual grain of the work — what was explored, what was speced, what each execution round changed and why — lives in the STDD artifacts (spec/tasks/ledger), not in commit history. That's exactly why those artifacts are published alongside the code instead of left in a local `.claude/` directory: the commit log alone would tell you almost nothing true about how this was built.

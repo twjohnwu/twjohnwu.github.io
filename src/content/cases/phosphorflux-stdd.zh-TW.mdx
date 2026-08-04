@@ -1,0 +1,43 @@
+---
+urlSlug: phosphorflux-stdd
+lang: zh-TW
+title: STDD＋agent orchestration：三天從零到 npm
+company: 個人專案
+period: 2026-07
+tagline: 一套主題化的 Claude Code statusline，全程用 spec-first、測試驅動、agent orchestration 的流程打造——完整過程連同粗糙之處一併公開
+heroMetrics:
+  - { value: 441, label: "測試全綠" }
+  - { value: 3, label: "天從零到上架" }
+  - { value: 97, label: "測試檔" }
+techStack: ["TypeScript", "React", "Ink", "ajv", "vitest", "tsup", "npm"]
+order: 5
+---
+
+## 問題
+AI 輔助開發最常見的失敗模式不是「code 跑不動」，而是連寫的人自己都說不出來為什麼跑得動、又是照什麼標準檢查過的。Vibe coding 不會留下任何軌跡：沒有 spec 可以對照，沒有先紅後綠的測試證據，只有一句「應該可以了」。
+
+## 方法
+Spec-Test-Driven Development（STDD）把每次變更都跑過五個階段：**explore → spec → plan → execute → verify**。有兩個機制讓這條軌跡是真的可稽核，不是裝飾。第一，spec-first：在任何 code 寫出來之前，每個需求都先拿到穩定的 REQ/S ID，讓測試可以明確指出自己在證明哪一條需求。第二，execute 階段本身拆成 RED → GREEN/REFACTOR，由兩個分開的 agent 執行——builder 負責先寫會失敗的測試、再寫實作；獨立的 verifier 則對照 spec ID 重新檢查結果，而不是聽 builder 自己的結案報告。
+
+```mermaid
+flowchart LR
+  Explore --> Spec
+  Spec --> Plan
+  Plan --> Execute
+  Execute --> Verify
+  subgraph Execute
+    direction LR
+    RED["Builder: RED<br/>(先寫失敗測試)"] --> GREEN["Builder: GREEN/REFACTOR<br/>(實作)"]
+    GREEN --> VER["獨立 Verifier"]
+  end
+```
+
+## 結果
+phosphorflux 從空 repo 一路做到在 npm 上發佈 `v1.1.0`。測試套件累積到 441 個測試、97 個測試檔，全數綠燈，且測試程式碼（10.9k 行）比被測的 source（8.4k 行）還多。雙語文件與 CI 都已就位。整段從零到上架耗時三天。完整的 STDD 軌跡——spec、plan、執行 ledger——公開在 [github.com/twjohnwu/phosphorflux/tree/main/docs/tlor-stdd](https://github.com/twjohnwu/phosphorflux/tree/main/docs/tlor-stdd)。
+
+## Limits
+這不是「三天無中生有」的主張，也不該被這樣解讀。這三天的前提是 orchestration 框架與 STDD skill 都已經先存在——建這套框架本身花的時間並不算在三天裡,假裝沒這回事會誤導這個數字的意義。
+
+Token 成本是這套流程真正的代價，值得老實講出來而不是輕描淡寫：讓分開的 builder/verifier agent 跑完五個階段，比直接手寫 code 要多燒不少 token。目前的緩解方向——還沒落地——是同一個 repo 裡 `docs/tlor-stdd/` 裡的 token 縮減提案。
+
+repo 本身只有六個 git commit。這份工作真正的顆粒度——探索了什麼、spec 了什麼、每一輪執行改了什麼、為什麼——並不在 commit 歷史裡,而是在 STDD 的 artifacts（spec/tasks/ledger）裡。這正是為什麼這些 artifacts 會跟著 code 一起公開,而不是留在本地的 `.claude/` 目錄裡:光看 commit log,幾乎看不出這東西是怎麼做出來的。
