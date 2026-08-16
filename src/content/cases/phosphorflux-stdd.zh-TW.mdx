@@ -49,6 +49,6 @@ repo 本身只有十二個 git commit。這份工作真正的顆粒度——探�
 
 第二次也讓成本換了位置。拿掉 builder CLI 外面那層 agent wrapper，等於移除每次 builder 派工約 46k token 的固定底盤，成本中心整個移到驗證——約佔該次執行的 81%。每拆掉一個瓶頸，就會露出下一個。
 
-完整的跨次比較——需求與情境數、各階段修復輪次、兩次的 token 帳，以及兩次共有的四個返工模式——公開在 [tlor-orchestration `docs/en/stdd-reviews/statusline.md`](https://github.com/twjohnwu/tlor-orchestration/blob/main/docs/en/stdd-reviews/statusline.md)。
+完整的跨次比較——需求與情境數、各階段修復輪次、兩次的 token 帳，以及兩次共有的四個返工模式——公開在 [tlor-orchestration `docs/zh-TW/stdd-reviews/statusline.md`](https://github.com/twjohnwu/tlor-orchestration/blob/main/docs/zh-TW/stdd-reviews/statusline.md)。
 
 phosphorflux 已停在 `v1.2.0` 並停止維護；phosphorpulse `v0.1.0` 接替它，並內建 `migrate` 指令把舊設定搬過去。
