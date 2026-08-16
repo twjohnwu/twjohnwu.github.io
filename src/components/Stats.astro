@@ -5,15 +5,15 @@ const locale = getLocaleFromUrl(Astro.url);
 const items = locale === 'zh-TW'
   ? [
       { value: 113000, label: '2020 跨年偵測人次' },
-      { value: 300, suffix: '+', label: 'WiSide 部署 scanners' },
-      { value: 12, label: '團隊峰值人數' },
-      { value: 23, label: 'AI Code Review 部署 repos' }
+      { value: 314, suffix: '+', label: 'WiSide 部署 scanners' },
+      { value: 12, label: '團隊規模峰值（歷經重組 5–12 人）' },
+      { value: 10, suffix: '+', label: '年生產系統經驗' }
     ]
   : [
       { value: 113000, label: 'NYE 2020 attendees detected' },
-      { value: 300, suffix: '+', label: 'WiSide scanners deployed' },
-      { value: 12, label: 'Peak team size' },
-      { value: 23, label: 'Repos with AI code review' }
+      { value: 314, suffix: '+', label: 'WiSide scanners deployed' },
+      { value: 12, label: 'Peak team size (5–12 through reorgs)' },
+      { value: 10, suffix: '+', label: 'Years shipping production systems' }
     ];
 ---
 <section id="stats" class="mx-auto max-w-5xl px-6 py-16">
