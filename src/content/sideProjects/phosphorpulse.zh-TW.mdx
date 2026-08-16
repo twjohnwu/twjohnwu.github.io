@@ -2,9 +2,9 @@
 urlSlug: phosphorpulse
 lang: zh-TW
 name: phosphorpulse
-tagline: "phosphorflux 的 Rust 重寫——byte-parity 的 statusline renderer，加上 ratatui 全螢幕 TUI；從 STDD spec 到 v0.1.0 釋出不到兩天。"
+tagline: "phosphorflux 的 Rust 重寫——與原版位元組級一致（byte-parity）的 statusline renderer，加上 ratatui 全螢幕 TUI；從 STDD spec 到 v0.1.0 釋出不到兩天。"
 techStack: ["Rust", "ratatui", "crossterm", "serde", "toml_edit", "cargo-dist", "GitHub Actions"]
 repo: https://github.com/twjohnwu/phosphorpulse
-highlight: "與 TypeScript 原版 byte-parity，由 11 組 hermetic golden fixture 守門；64 個測試在雙平台（Linux＋macOS）CI matrix 全綠；cargo-dist 產出四平台執行檔；內建 migrate 指令直接搬過 phosphorflux 設定。暖啟 render 依本機量測快約 36-57 倍（非 committed benchmark）；1 秒刷新下閒置 CPU 約 0.7%，原版約 25% 單核。"
+highlight: "與 TypeScript 原版位元組級一致，由 11 組封閉式黃金樣本（hermetic golden fixture）守門；64 個測試在雙平台（Linux＋macOS）CI matrix 全綠；cargo-dist 產出四平台執行檔；內建 migrate 指令直接搬過 phosphorflux 設定。暖啟 render 依本機量測快約 36-57 倍（非 committed benchmark）；1 秒刷新下閒置 CPU 約 0.7%，原版約 25% 單核。"
 order: 4
 ---

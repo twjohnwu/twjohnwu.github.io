@@ -45,10 +45,10 @@ repo 本身只有十二個 git commit。這份工作真正的顆粒度——探�
 ## 續集：同一套流程，再用 Rust 跑一次
 十一天後，同一個工具被重寫了第二次——phosphorflux（TypeScript）→ [phosphorpulse](https://github.com/twjohnwu/phosphorpulse)（Rust），走的是同一套 STDD 流程。在同一個問題上跑兩次，才讓這套流程從個案變成可以量的東西。
 
-第一次最貴的教訓是 oracle 建得太晚：前代其實一直是可執行的，但 golden diff 的比對卻拖到人工肉眼檢查好幾輪之後才做出來。Rust 這次把順序倒過來——先寫 golden fixture，再寫實作——結果 renderer 走查輪次是零：17 個 scenario 在使用者第一次接觸時就全過。從中掉出來的規則很直白：走查輪次的多寡，跟「沒有 oracle 的表面積」成正比。同一次執行裡的 TUI 部分，視覺、快捷鍵、i18n 都沒有 oracle 可對，就走了九輪。
+第一次最貴的教訓是判準（oracle）建得太晚：前代其實一直是可執行的，但黃金樣本比對卻拖到人工肉眼檢查好幾輪之後才做出來。Rust 這次把順序倒過來——先寫黃金樣本（golden fixture），再寫實作——結果 renderer 走查輪次是零：17 個情境在使用者第一次接觸時就全過。從中掉出來的規則很直白：走查輪次的多寡，跟「沒有判準可對的表面積」成正比。同一次執行裡的 TUI 部分，視覺、快捷鍵、i18n 都沒有判準可對，就走了九輪。
 
-第二次也讓成本換了位置。拿掉 builder CLI 外面那層 agent wrapper，等於移除每次 builder 派工約 46k token 的固定底盤，成本中心整個移到 verification——約佔該次執行的 81%。每拆掉一個瓶頸，就會露出下一個。
+第二次也讓成本換了位置。拿掉 builder CLI 外面那層 agent wrapper，等於移除每次 builder 派工約 46k token 的固定底盤，成本中心整個移到驗證——約佔該次執行的 81%。每拆掉一個瓶頸，就會露出下一個。
 
-完整的跨次比較——需求與 scenario 數、各階段修復輪次、兩次的 token 帳，以及兩次共有的四個返工模式——公開在 [tlor-orchestration `docs/en/stdd-reviews/statusline.md`](https://github.com/twjohnwu/tlor-orchestration/blob/main/docs/en/stdd-reviews/statusline.md)。
+完整的跨次比較——需求與情境數、各階段修復輪次、兩次的 token 帳，以及兩次共有的四個返工模式——公開在 [tlor-orchestration `docs/en/stdd-reviews/statusline.md`](https://github.com/twjohnwu/tlor-orchestration/blob/main/docs/en/stdd-reviews/statusline.md)。
 
 phosphorflux 已停在 `v1.2.0` 並停止維護；phosphorpulse `v0.1.0` 接替它，並內建 `migrate` 指令把舊設定搬過去。
