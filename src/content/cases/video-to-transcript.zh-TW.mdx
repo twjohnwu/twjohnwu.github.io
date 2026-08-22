@@ -4,38 +4,38 @@ lang: zh-TW
 title: video-to-transcript
 company: 個人專案
 period: 2026-07
-tagline: Apple Silicon 完全本機的影音轉逐字稿 pipeline —— 從上游原始碼找出 Whisper 跳針的根因並修復
+tagline: Apple Silicon 上完全本機的影音轉逐字稿 pipeline——Whisper 的跳針，追到上游 CLI 裡的一行硬編碼
 heroMetrics:
-  - { value: 3, label: "層 repetition loop 防線" }
+  - { value: 3, label: "層跳針防線" }
   - { value: 100, label: "本機處理", suffix: "%" }
   - { value: 0, label: "檔案上傳 / API 呼叫" }
 techStack: ["mlx-whisper", "ffmpeg", "Python", "OpenCC", "Claude Code Skill"]
 order: 5
 ---
 
-## Problem
-會議錄音、內部教育訓練影片屬敏感內容，不適合上傳雲端 ASR 服務。本機方案 `mlx_whisper` CLI 跑短片沒問題，但長音檔一遇到靜音、換頁停頓就大量跳針——同一句話重複數百行、單字連打成亂碼，收尾靜音處還會冒出訓練語料帶來的「YouTube 結尾致詞」幻覺。
+## 問題
+會議錄音和內部教育訓練影片，正好是那種你不會交給雲端 ASR 服務的素材。本機的 `mlx_whisper` CLI 跑短片沒問題，長音檔卻會在靜音和換頁停頓的地方脫軌：同一句話重複幾百行、單字連打成亂碼，收尾那段靜音裡還會冒出一句訓練語料帶來的、YouTube 式的歡快結尾致詞。
 
-## Root Cause
-讀上游 `mlx_whisper/transcribe.py` 原始碼後找到根因：Whisper 原設計有 temperature fallback tuple `(0.0, 0.2, …, 1.0)`——偵測到片段過度重複（compression ratio 超標）就升溫重解。**但 CLI 把 `--temperature` 硬編碼成單一 float**，tuple 被塌縮成 `[0.0]`，fallback 機制整個被停用，且沒有任何 CLI 參數能傳回 tuple。跳針從此永遠不會被重試。
+## 根因
+答案在上游的 `mlx_whisper/transcribe.py` 裡。Whisper 本身帶了一組 temperature fallback tuple `(0.0, 0.2, …, 1.0)`：偵測到某段回來的結果過度重複（compression ratio 超標），就升溫重解一次。但 CLI 把 `--temperature` 硬編碼成單一 float，這個 tuple 就塌縮成 `[0.0]`，fallback 整個被關掉，而且沒有任何 CLI 參數能把 tuple 傳回去。於是跳針永遠不會被重試，那個原本就是為這種失敗設計的防護，一次也沒跑過。
 
-## Architecture
+## 架構
 ```mermaid
 flowchart LR
   SRC[影音檔] --> FF["ffmpeg<br/>切 16 kHz 單聲道分段"]
   FF --> TR["mlx_transcribe.py<br/>Python API，fallback 還原"]
   TR --> MG["merge_vtt.py<br/>時間軸平移合併"]
-  MG --> CL["clean_vtt.py<br/>幂等去重"]
+  MG --> CL["clean_vtt.py<br/>冪等去重"]
   CL --> TW["to_traditional.py<br/>OpenCC s2twp 簡轉繁"]
 ```
 
-## My Role
-獨立完成 pipeline 全部設計與實作（其中 `extract_transcript.py` 為 vendored 第三方元件，MIT 授權標註）。
+## 我的角色
+整條 pipeline 由我獨力設計與實作。其中 `extract_transcript.py` 是 vendored 的第三方元件，依 MIT 授權標註。
 
-## Impact
-- 三層防線：改走 Python API 還原 temperature fallback、分段轉錄把 loop 關進自己的 chunk、收尾去重清掉殘餘跳針與幻覺句
-- 批次可續跑：已完成的檔案自動跳過，寫檔皆為原子操作，中斷重跑即接續
-- 音訊全程不離開本機，ASR 在 Mac GPU（Metal/MLX）上完成；亦可安裝為 Claude Code skill，一句「幫我轉逐字稿」即觸發
+## 成果
+- 三層防線，因為我不信任其中任何單獨一層：改走 Python API 還原 temperature fallback、分段轉錄把跳針關在自己的 chunk 裡、最後一輪去重清掉殘餘的連打與幻覺套語
+- 批次可續跑：已經有輸出的檔案自動跳過，每次寫檔都是原子操作，跑到一半中斷、回來接著跑就好
+- 音訊全程不離開這台機器，ASR 在 Mac 的 GPU 上透過 Metal/MLX 完成；它也能裝成 Claude Code skill，說一句「幫我轉逐字稿」就會動起來
 
-## Lessons — 修 bug 的正解在上游原始碼
-症狀（跳針）看起來像模型問題，換模型、調 prompt 都只能碰運氣。往下讀一層 CLI 的封裝程式碼，發現是一行硬編碼把原廠防護整個關掉——根因分析的起點不是工具的文件，而是工具的原始碼。
+## 學到什麼——真正的修法在下面一層
+跳針看起來像模型的問題，而當成模型問題處理，就會變成換模型、調 prompt，那是每試一次都要付費的猜謎。往下一層，在 CLI 的封裝裡，躺著一行硬編碼，把原廠內建的防護整個關掉了。根因分析的起點是工具的原始碼，不是工具的文件。

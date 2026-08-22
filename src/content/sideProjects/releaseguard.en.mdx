@@ -2,9 +2,9 @@
 urlSlug: releaseguard
 lang: en
 name: ReleaseGuard
-tagline: MR-level release gating — four specialised agents inspect the diff in parallel; an arbitration layer collapses their signals into one HOLD / REVIEW / PROCEED recommendation.
+tagline: "Release gating at the MR level: four specialised agents inspect the diff in parallel, then an arbitration layer collapses their signals into one recommendation, HOLD or REVIEW or PROCEED."
 techStack: ["Go", "GitLab MR", "LCOV callgraph", "Docker Compose"]
 repo: https://github.com/twjohnwu/releaseGuard
-highlight: 18 architecture decision records and an implemented false-positive feedback loop (GitLab labels → HOLD precision) — fully tested, not yet run against live traffic.
+highlight: "The arbitration rules are the actual product, so the reasoning is written down: 18 architecture decision records, plus an implemented false-positive feedback loop where GitLab labels feed back into HOLD precision. Designed and fully tested; not yet run against live traffic."
 order: 1
 ---

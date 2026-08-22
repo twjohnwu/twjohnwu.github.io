@@ -2,9 +2,9 @@
 urlSlug: excel-template-parser
 lang: zh-TW
 name: excelTemplateParser
-tagline: 把多份同格式 Excel 批次轉成另一種格式 — 規則寫一次重複套用。單機 Docker 部署，免登入。
+tagline: "把一堆同格式的 Excel 轉成另一種格式。對應規則寫一次就能一直重複套用，單機 Docker 跑，不用登入。"
 techStack: ["React", "Vite", "TypeScript", "FastAPI", "RQ", "openpyxl", "Redis", "Docker Compose"]
 repo: https://github.com/twjohnwu/excelTemplateParser
-highlight: 276 單元測試＋14 場景 E2E；可中斷續跑的 job queue — 進度存 Redis，重啟後自動接回並在瀏覽器通知完成。
+highlight: "難的地方是佇列，不是解析。跑到一半被中斷的任務會從 Redis 把狀態撿回來，跑完照樣通知瀏覽器；276 個單元測試加 14 個 E2E 場景就是盯著這件事不放。"
 order: 2
 ---

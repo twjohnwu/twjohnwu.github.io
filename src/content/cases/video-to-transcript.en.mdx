@@ -4,7 +4,7 @@ lang: en
 title: video-to-transcript
 company: Personal Project
 period: 2026-07
-tagline: Fully local video-to-transcript pipeline on Apple Silicon — root-caused Whisper's repetition loops in the upstream source and fixed them
+tagline: A fully local video-to-transcript pipeline on Apple Silicon, after tracing Whisper's repetition loops to one hard-coded line in the upstream CLI
 heroMetrics:
   - { value: 3, label: "Repetition-loop defense layers" }
   - { value: 100, label: "On-device processing", suffix: "%" }
@@ -14,10 +14,10 @@ order: 5
 ---
 
 ## Problem
-Meeting recordings and internal training videos are sensitive content that shouldn't be uploaded to cloud ASR services. The local `mlx_whisper` CLI handles short clips fine, but on long audio it derails at silences and slide-transition pauses — the same phrase repeated for hundreds of lines, single characters stuttering into garbage, and "YouTube outro" sign-offs hallucinated from the training corpus during trailing silence.
+Meeting recordings and internal training videos are exactly the material you don't hand to a cloud ASR service. The local `mlx_whisper` CLI is fine on short clips. On long audio it derails at silences and slide-transition pauses: the same phrase repeated for hundreds of lines, single characters stuttering into garbage, and, during the trailing silence, a cheerful YouTube-style sign-off hallucinated straight out of the training corpus.
 
-## Root Cause
-Reading the upstream `mlx_whisper/transcribe.py` source revealed the cause: Whisper ships with a temperature fallback tuple `(0.0, 0.2, …, 1.0)` — when a segment is too repetitive (compression ratio over threshold), it re-decodes at a higher temperature. **But the CLI hard-codes `--temperature` as a single float**, collapsing the tuple to `[0.0]` and disabling the fallback entirely, with no CLI flag able to pass a tuple back. Loops never get retried.
+## Root cause
+The answer was in the upstream `mlx_whisper/transcribe.py`. Whisper ships a temperature fallback tuple, `(0.0, 0.2, …, 1.0)`: when a segment comes back too repetitive (compression ratio over threshold), it re-decodes at a higher temperature. The CLI hard-codes `--temperature` as a single float, which collapses that tuple to `[0.0]` and switches the fallback off entirely. No CLI flag can pass a tuple back in. So the loops are never retried, and the safeguard that was designed for exactly this failure never runs.
 
 ## Architecture
 ```mermaid
@@ -29,13 +29,13 @@ flowchart LR
   CL --> TW["to_traditional.py<br/>OpenCC s2twp conversion"]
 ```
 
-## My Role
-Designed and built the entire pipeline independently (`extract_transcript.py` is a vendored third-party component, MIT-attributed).
+## My role
+I designed and built the pipeline on my own. `extract_transcript.py` is a vendored third-party component, MIT-attributed.
 
 ## Impact
-- Three defense layers: the Python API path restores the temperature fallback, chunked transcription confines any loop to its own chunk, and a final dedup pass removes residual stutter and hallucinated boilerplate
-- Resumable batch runs: files with existing output are skipped, all writes are atomic — interrupt and rerun to continue
-- Audio never leaves the machine; ASR runs on the Mac's GPU (Metal/MLX). Also installable as a Claude Code skill — "transcribe this video" triggers it
+- Three layers of defense, because I don't trust any one of them alone: the Python API path restores the temperature fallback, chunked transcription keeps a loop trapped inside its own chunk, and a final dedup pass clears residual stutter and hallucinated boilerplate
+- Batch runs are resumable. Files with existing output get skipped and every write is atomic, so you can interrupt a run and pick it back up
+- Audio never leaves the machine; ASR runs on the Mac's GPU through Metal/MLX. It also installs as a Claude Code skill, so "transcribe this video" is enough to start it
 
-## Lessons — the real fix lives in the upstream source
-The symptom (repetition loops) looks like a model problem; swapping models or tuning prompts is guesswork. Reading one layer down into the CLI wrapper revealed a single hard-coded line that switched off the built-in safeguard — root-cause analysis starts from the tool's source code, not its documentation.
+## Lessons — the real fix was one layer down
+Repetition loops look like a model problem, and treating them as one means swapping models and tweaking prompts, which is guesswork with a cost per attempt. One layer down, in the CLI wrapper, sat a single hard-coded line that had turned off a built-in safeguard. Root-cause analysis starts in the tool's source, not its documentation.

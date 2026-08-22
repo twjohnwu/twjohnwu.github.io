@@ -4,13 +4,13 @@ const locale = getLocaleFromUrl(Astro.url);
 const copy = locale === 'zh-TW'
   ? {
       name: 'John Wu',
-      role: 'R&D Team Lead · Full Stack Engineer · AI Code Review 與 LLM 工具鏈 · ESG SaaS',
-      tagline: '十年來在政府、IoT、醫療、SaaS 不同場景交付系統，這兩年重心放在 AI code review 與 LLM 工具鏈。讓我印象最深的仍然不是規模最大的那個 — 是 WiSide，2020 年跨年它記下了 113,000 多人走過台北街頭。'
+      role: 'R&D Team Lead · 全端工程師 · AI Code Review 與 LLM 工具鏈 · ESG SaaS',
+      tagline: '十年來我寫的都是要真的上線的系統：政府、IoT、醫療、SaaS。這兩年重心放在 AI code review 與 LLM 工具鏈。我到現在最常提起的還是 WiSide：2020 年跨年夜，它的 15 台掃描器（scanner）數出 113,000 人走過台北街頭。'
     }
   : {
       name: 'John Wu',
       role: 'R&D Team Lead · Full-Stack Engineer · AI Code Review & LLM Tooling · ESG SaaS',
-      tagline: "Ten years in, I've built systems across government, IoT, healthcare and SaaS; the last two have gone into AI code review and LLM tooling. The one that still sticks with me isn't the biggest in scale — it's WiSide. On 2020's New Year's Eve, 15 of its scanners counted 113,000 people walking through Taipei."
+      tagline: "Ten years of shipping systems into production: government, IoT, healthcare, SaaS. The last two went into AI code review and LLM tooling. The project I still talk about is WiSide. On New Year's Eve 2020, 15 of its scanners counted 113,000 people walking through Taipei."
     };
 ---
 <section class="mx-auto max-w-5xl px-6 pt-16 pb-12">

@@ -2,9 +2,9 @@
 urlSlug: releaseguard
 lang: zh-TW
 name: ReleaseGuard
-tagline: MR-level release gating — 四個專用 agent 並行分析 diff，仲裁層輸出 HOLD / REVIEW / PROCEED，給 reviewer 一個明確 call。
+tagline: "MR 層級的發版把關：四個專用 agent 並行看同一份 diff，仲裁層再把它們的訊號收成一個結論，HOLD、REVIEW 或 PROCEED。"
 techStack: ["Go", "GitLab MR", "LCOV callgraph", "Docker Compose"]
 repo: https://github.com/twjohnwu/releaseGuard
-highlight: 18 條架構決策紀錄（ADR）＋已實作的誤報回饋迴路（GitLab label → HOLD precision）——僅測試驗證，尚未接真實流量。
+highlight: "真正的產品是仲裁規則，所以判斷的理由全部寫下來：18 份架構決策紀錄（ADR），加上已實作的誤報回饋迴路，GitLab label 會回流去修正 HOLD 的精確度。已完成設計與完整測試；尚未接上真實流量。"
 order: 1
 ---

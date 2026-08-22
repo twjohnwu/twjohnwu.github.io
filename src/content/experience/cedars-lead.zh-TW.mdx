@@ -7,13 +7,13 @@ period: 2024-05 → Present
 location: 台北
 order: 1
 bullets:
-  - 帶領研發團隊推進 v2.0 平台重寫；歷經多次組織重整、團隊規模在 5–12 人間變動（FE / BE / Singapore remote），2024 招募 3 名前端工程師，每次轉型維持交付節奏，現以「全員全端」為方向培育團隊。
-  - 於 v2.0 重寫中負責供應鏈管理系統後端開發：與 PO 共同規劃 milestone、設計 sitemap 與流程圖，以 OpenAPI v3.0 介面契約與團隊前端及另外兩條產品線的前後端工程師整合。這場重寫的前提是 PM 未提供 spec — 我與軟體開發經理共同導入 SDD（方法共同定義、實作由我完成）：以自建 spec-kit → contract → 介接流程完成架構級重構（問卷制 → Excel 上傳＋審核制＋跨產品線串接），並獨力建立與維護跨產品線 contract 層（40+ 份介面 YAML）。
-  - 自動化 Asana 開票流程 — 自建獨立開票腳本結合 Claude Code 估點 skill：可機械化步驟全部腳本化，唯一需判斷的估點交由 AI agent 對多張待開票並行估點。
-  - 打造整合進 GitLab CI/CD 的 AI Code Review — config-driven 架構，組合 shared 與 system-specific review standards 成 prompt，新服務以設定檔註冊即可上線、零程式碼變更。以可切換 provider 的 LLM 架構運作，v2.0 加入 self-reflection 流程，現運行於多個前後端微服務 repo；兩輪內部問卷顯示多數工程師依建議在合併前改 code，對流程的依賴度隨迭代上升。v2.1（2026-08）加入正式環境的檢索層——自建嵌入式向量庫，採 BM25 與 embedding 混合排序。
-  - 以 GHG Protocol Corporate Standard（第 4、9 章）直接裁定 HCFC-22 冷媒的排放分類爭議。
-  - 後端技術棧升級——NestJS 9→11、Node 24、TypeScript 與 Jest 30（2026-07），一併解掉跨 repo 的版本鎖定問題。
-  - 選定並推行團隊的前端技術設計文件規範——10 個章節的模板配 4 種標準圖，以 validator 強制檢核；首份採用此規範的設計文件於 2026-06 落地。
-  - 擔任年度 IaC 計畫召集人，將 GCP 現行架構轉寫為 Terraform 並納入 GitLab 版控。
-  - 建立內部工程知識庫 — 整合 onboarding、系統架構、環境設定與內部技術分享，從減少重複提問演變為新進工程師實際依賴的資源。
+  - 帶研發團隊進行公司 v2.0 平台重寫（進行中）。團隊經過幾次組織重整，規模在 5–12 人之間浮動（前端、後端、Singapore remote），2024 年我招了 3 名前端工程師。每次重整都等於把團隊的協作節奏重建一次，而交付從來沒有斷過。現在我在把每個成員帶向能獨立承擔全端的範圍。
+  - v2.0 重寫裡，供應鏈管理系統的後端由我負責。跟 PO 一起排 milestone、畫 sitemap 與流程圖，再用 OpenAPI v3.0 的介面契約跟團隊前端以及另外兩條產品線整合。這場重寫沒有 PM 給的規格，所以我和軟體開發經理一起導入了規格驅動開發（SDD，Specification-Driven Development），方法是兩個人共同定出來的。我實作了 spec-kit → contract → 介接這條流程，撐住一次架構級的重新設計；跨產品線的 contract 層是我一個人建起來、也還在維護的，40 份以上的介面 YAML。
+  - Asana 開票流程自動化：一支獨立的開票腳本，搭配一個 Claude Code 估點 skill。能機械化的步驟全部寫成腳本，唯一需要判斷的估點交給 AI agent，對多張待開的票並行處理。
+  - 把 AI Code Review 做進 GitLab CI/CD。它是 config-driven 的，把共用的與各系統專屬的 review 標準組合成 prompt，新服務只要在設定檔登記就能上線，一行程式碼都不必改；LLM 則放在可替換的 provider 層後面。v2.0 加了 self-reflection 這一關，現在前端和後端的微服務 repo 都在跑。兩輪內部問卷的結果是，多數工程師會照它的建議在合併前改 code，而且依賴程度每一次迭代都再高一點。v2.1（2026-08）補上正式環境的檢索層，自建的嵌入式向量庫，用 BM25 加 embedding 的混合排序。
+  - HCFC-22 冷媒的排放分類吵不出結論，我直接照 GHG Protocol Corporate Standard 第 4 章與第 9 章裁定。
+  - 2026-07 升級後端技術棧：NestJS 9→11、Node 24、TypeScript 與 Jest 30，順手把跨 repo 的版本鎖定問題一併解掉。
+  - 選定並推行團隊的前端技術設計文件規範，10 個章節的模板配 4 種標準圖，用 validator 強制檢核。第一份採用這套規範的設計文件在 2026-06 完成。
+  - 年度 IaC（基礎設施即程式碼）計畫由我召集，把現行的 GCP 架構寫成 Terraform，納進 GitLab 版控。
+  - 建了一個內部工程知識庫，onboarding、系統架構、環境設定、內部技術分享都收在同一個地方。起因只是不想同一個問題回答兩次。現在新進工程師真的會去翻它。
 ---

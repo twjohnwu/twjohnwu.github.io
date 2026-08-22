@@ -2,9 +2,9 @@
 urlSlug: video-to-transcript
 lang: zh-TW
 name: video-to-transcript
-tagline: 在 Apple Silicon Mac 上完全本機執行的影音轉逐字稿 pipeline——不經 API、不上傳檔案，ASR 由 mlx-whisper 在 GPU (Metal/MLX) 上完成，同時可作為 Claude Code skill 使用。
+tagline: "影音轉逐字稿，過程中沒有任何東西離開這台機器：不打 API、不上傳檔案，ASR 交給 mlx-whisper 在 Apple Silicon 的 GPU（Metal/MLX）上跑。它同時也是一個 Claude Code skill。"
 techStack: ["mlx-whisper", "ffmpeg", "Python", "Claude Code Skill"]
 repo: https://github.com/twjohnwu/video-to-transcript
-highlight: 分段轉錄修復 Whisper 重複幻覺、合併去重 VTT cue，並以 OpenCC s2twp 自動轉台灣正體。
+highlight: "值得動手做的是防幻覺那一段：分段轉錄讓 Whisper 不會掉進重複迴圈。切出來的 VTT 分段再合併去重，最後用 OpenCC s2twp 轉成台灣正體。"
 order: 6
 ---

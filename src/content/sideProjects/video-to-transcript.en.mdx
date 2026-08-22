@@ -2,9 +2,9 @@
 urlSlug: video-to-transcript
 lang: en
 name: video-to-transcript
-tagline: Fully local video/audio-to-transcript pipeline on Apple Silicon — no API, no upload; ASR runs on-GPU via mlx-whisper (Metal/MLX). Doubles as a Claude Code skill.
+tagline: "Video and audio to transcript without anything leaving the machine: no API, no upload, ASR on the Apple Silicon GPU via mlx-whisper (Metal/MLX). It doubles as a Claude Code skill."
 techStack: ["mlx-whisper", "ffmpeg", "Python", "Claude Code Skill"]
 repo: https://github.com/twjohnwu/video-to-transcript
-highlight: Chunked transcription that defeats Whisper's repetition-loop hallucination, VTT merge + dedup, and OpenCC s2twp conversion to Traditional Chinese.
+highlight: "The part worth building was the hallucination guard: chunked transcription keeps Whisper out of its repetition loop. The VTT chunks then get merged and deduped, and OpenCC s2twp converts the result to Traditional Chinese."
 order: 6
 ---

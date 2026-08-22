@@ -4,7 +4,7 @@ lang: en
 title: Carbon SaaS (Cedars v1.0 → v2.0)
 company: Cedars Digital
 period: Aug 2023 – Present
-tagline: From 0→1 founding engineer to v2.0 supply chain system backend
+tagline: Founding backend engineer on v1.0; on v2.0 I owned the supply chain backend and wrote the specs nobody else was going to write
 heroMetrics:
   - { value: 12, label: "Peak team size" }
   - { value: 3, label: "Product lines integrated" }
@@ -13,18 +13,18 @@ order: 2
 ---
 
 ## Problem
-Carbon compliance shifted from "annual report" to "daily operations." Enterprises needed audit-ready supply chain data flows, not Excel collages.
+Carbon compliance stopped being an annual report and became a daily operation. That changes what the software has to be. Our clients didn't need a nicer form to fill in once a year; they needed supply chain data that could survive an audit, arriving continuously, from suppliers who were still emailing each other spreadsheets.
 
 ## Architecture
-v1.0 modular monolith on Nest.js → v2.0 split into product lines. Supply chain integrates with two other product lines via explicit APIs.
+v1.0 was a modular monolith on Nest.js. I'd defend that choice again for a product whose domain boundaries nobody understood yet, including us. v2.0 split it along product lines, and the supply chain system now talks to the two others through explicit APIs rather than shared tables.
 
-## My Role
-- v1.0: founding backend engineer; promoted to Team Lead within a year
-- v2.0: backend developer for the supply chain management system — milestone planning with the PO, sitemap and flow design, integrating with the frontend team and two other product lines via OpenAPI v3.0 interface contracts
+## My role
+- v1.0: founding backend engineer, and Team Lead inside a year
+- v2.0: backend developer on the supply chain management system. Milestone planning with the PO, sitemap and flow design, and the integration work with the frontend team and the other two product lines through OpenAPI v3.0 contracts
 
 ## Impact
-- v1.0 shipped to multiple enterprise clients
-- v2.0 introduced Specification-Driven Development — with no PM-provided specs, an architecture-level redesign was delivered through a self-built spec-kit → contract → integration method, plus a codified cross-product contract layer (40+ interface YAMLs)
+- v1.0 shipped to enterprise clients in production
+- v2.0 is where Specification-Driven Development came in, and the reason was not methodology enthusiasm: there were no PM-provided specs to build against. So the redesign went through a self-built spec-kit, then contracts, then integration, and the cross-product contract layer got written down instead of agreed verbally (40+ interface YAMLs)
 
 ## Lessons
-From writing code, to managing people writing code, to writing specs for AI to write code — each transition resets where my highest-value contribution lives.
+Writing code, then managing people writing code, then writing specs for AI to write code. Every one of those moves reset where my highest-value contribution actually sits, and each time it took me a while to notice the old answer had expired.

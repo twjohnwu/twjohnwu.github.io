@@ -2,9 +2,9 @@
 urlSlug: excel-template-parser
 lang: en
 name: excelTemplateParser
-tagline: Batch-convert many Excel files of the same format into another — author the mapping once, reuse forever. Single-machine Docker, no login.
+tagline: "Turns a pile of same-format Excel files into another format. You author the mapping once and reuse it; it runs on a single machine under Docker, with no login."
 techStack: ["React", "Vite", "TypeScript", "FastAPI", "RQ", "openpyxl", "Redis", "Docker Compose"]
 repo: https://github.com/twjohnwu/excelTemplateParser
-highlight: 276 unit tests + 14 E2E scenarios; resumable job queue — interrupted runs reload from Redis and notify the browser on completion.
+highlight: "The queue turned out to be the hard part, not the parsing. An interrupted run reloads its state from Redis and still notifies the browser when it finishes, and 276 unit tests plus 14 E2E scenarios keep that behaviour honest."
 order: 2
 ---

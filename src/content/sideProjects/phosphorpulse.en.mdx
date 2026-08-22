@@ -2,9 +2,9 @@
 urlSlug: phosphorpulse
 lang: en
 name: phosphorpulse
-tagline: "Rust rewrite of phosphorflux — a byte-parity statusline renderer plus a full-screen ratatui TUI, taken from STDD spec to a released v0.1.0 in under two days."
+tagline: "The Rust rewrite of phosphorflux: same bytes out of the statusline renderer, plus a full-screen ratatui TUI. STDD spec to a released v0.1.0 in under two days."
 techStack: ["Rust", "ratatui", "crossterm", "serde", "toml_edit", "cargo-dist", "GitHub Actions"]
 repo: https://github.com/twjohnwu/phosphorpulse
-highlight: "Byte-parity with the TypeScript original, enforced by 11 hermetic golden fixtures; 64 tests green on a dual-platform (Linux + macOS) CI matrix; four-platform binaries via cargo-dist; built-in migrate command that carries phosphorflux config over. Warm render ~36-57x faster on local measurements (not a committed benchmark); idle CPU at a 1s refresh ~0.7% vs ~25% of a core."
+highlight: "Byte-parity with the TypeScript original was non-negotiable; 11 hermetic golden fixtures enforce it, and 64 tests run green on a dual-platform (Linux + macOS) CI matrix. cargo-dist ships four-platform binaries, and a built-in migrate command carries a phosphorflux config over. Warm render came out ~36-57x faster on local measurements (not a committed benchmark), and idle CPU at a 1s refresh sits near ~0.7% of a core instead of ~25%."
 order: 4
 ---

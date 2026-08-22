@@ -4,27 +4,27 @@ lang: zh-TW
 title: Carbon SaaS（Cedars v1.0 → v2.0）
 company: Cedars Digital
 period: 2023-08 → Present
-tagline: 從 0→1 founding engineer 到 v2.0 供應鏈系統後端主責
+tagline: v1.0 的創始後端工程師；v2.0 主責供應鏈系統後端，並把沒有別人會寫的 spec 寫出來
 heroMetrics:
-  - { value: 12, label: "團隊峰值" }
+  - { value: 12, label: "團隊峰值人數" }
   - { value: 3, label: "介接產品線數" }
 techStack: ["Node.js", "Nest.js", "PostgreSQL", "Redis", "GCP", "OpenAPI v3.0"]
 order: 2
 ---
 
-## Problem
-碳排合規從「年度報告」轉為「日常營運」，企業需要 audit-ready 的供應鏈資料流，而非 Excel 拼貼。
+## 問題
+碳排合規不再是一年交一份報告，而是每天的營運。這件事直接改變了軟體該長成什麼樣子。客戶要的不是一份比較好填的年度表單，是撐得過查核的供應鏈資料，而且要持續進來——資料來源則是那些至今還在互寄 Excel 的供應商。
 
-## Architecture
-v1.0 modular monolith（Nest.js）→ v2.0 拆分為多 product line，supply chain 與其他兩條產品線透過明定 API 介接。
+## 架構
+v1.0 是 Nest.js 上的 modular monolith。對一個連我們自己都還看不清領域邊界的產品，這個選擇我今天還會再選一次。v2.0 沿著產品線拆開，供應鏈系統現在是透過明定的 API 跟另外兩條產品線對話，而不是共用資料表。
 
-## My Role
-- v1.0：founding backend engineer，1 年內升任 Team Lead
-- v2.0：主責 supply chain 系統後端開發 — 與 PO 共定 milestone、規劃 sitemap/flowchart，以 OpenAPI v3.0 介面契約與前端及另外兩條 product line 整合
+## 我的角色
+- v1.0：創始後端工程師，一年內升任 Team Lead
+- v2.0：供應鏈管理系統的後端開發。與 PO 共定 milestone、規劃 sitemap 與流程圖，並以 OpenAPI v3.0 契約跟前端團隊、另外兩條產品線整合
 
-## Impact
-- v1.0 上線並服務多家企業客戶
-- v2.0 導入 SDD（Specification-Driven Development）— 在 PM 未提供 spec 下，以自建 spec-kit → contract → 介接方法完成架構級重構，並建立跨產品線 contract 層（40+ 份介面 YAML）
+## 成果
+- v1.0 上線，服務正式營運中的企業客戶
+- v2.0 導入 Specification-Driven Development（SDD），理由不是我對方法論有熱情，而是根本沒有 PM 提供的 spec 可以照著做。所以這次重構的順序是：自建 spec-kit → 契約 → 介接，跨產品線的契約層也從口頭共識變成寫下來的東西（40+ 份介面 YAML）
 
-## Lessons
-從寫 code 到帶人寫 code 是身份轉換，從帶人寫 code 到寫 spec 給 AI 寫 code 是另一次。每一次都需要重設「我貢獻價值的最高點」在哪。
+## 學到什麼
+先寫 code，然後帶人寫 code，再然後寫 spec 給 AI 寫 code。每一次轉換都把「我貢獻價值的最高點」重設一次，而每一次我都要花上一段時間，才發現舊答案已經過期。
