@@ -1,0 +1,10 @@
+---
+urlSlug: mrinspect
+lang: en
+name: MRInspect
+tagline: "A CLI that reviews GitLab merge requests with an AI model, written in pure Go. It runs as a non-blocking CI job: reads the diff, loads the team's own review standards, and posts one structured comment back onto the MR."
+techStack: ["Go", "Docker"]
+repo: https://github.com/twjohnwu/mrinspect
+highlight: "253 test functions run green under `go test -race`, and it ships as a GitHub Release plus a GHCR container image, so a team adds one job to `.gitlab-ci.yml` and is done. Prompts are the part unit tests can't pin down, so there's an offline harness of 4 fixtures × 3 modes — a reproducible qualitative dogfood eval loop I re-run whenever I change one."
+order: 1
+---

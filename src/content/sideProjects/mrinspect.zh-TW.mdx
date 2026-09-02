@@ -1,0 +1,10 @@
+---
+urlSlug: mrinspect
+lang: zh-TW
+name: MRInspect
+tagline: "用 AI 模型審 GitLab merge request 的 CLI，純 Go 寫成。它跑在不擋 pipeline 的 CI job 裡：讀 diff、載入該團隊自己的審查標準，然後在 MR 上留一則結構化的留言。"
+techStack: ["Go", "Docker"]
+repo: https://github.com/twjohnwu/mrinspect
+highlight: "253 個測試函式在 `go test -race` 下全綠，發布走 GitHub Release 加 GHCR 容器映像檔，別的團隊在 `.gitlab-ci.yml` 貼一段 job 就能跑。prompt 是單元測試釘不住的那一塊，所以另外做了離線的 4 組 fixture × 3 種模式，是一套可重跑的自用（dogfood）質性評估流程，每次改 prompt 我就重跑一次。"
+order: 1
+---
