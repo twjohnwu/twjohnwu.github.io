@@ -5,6 +5,6 @@ name: ReleaseGuard
 tagline: "MR 層級的發版把關：四個專用 agent 並行看同一份 diff，仲裁層再把它們的訊號收成一個結論，HOLD、REVIEW 或 PROCEED。"
 techStack: ["Go", "GitLab MR", "LCOV callgraph", "Docker Compose"]
 repo: https://github.com/twjohnwu/releaseGuard
-highlight: "真正的產品是仲裁規則，所以判斷的理由全部寫下來：18 份架構決策紀錄（ADR），加上已實作的誤報回饋迴路，GitLab label 會回流去修正 HOLD 的精確度。已完成設計與完整測試；尚未接上真實流量。"
+highlight: "真正的產品是仲裁規則，所以判斷的理由全部寫下來：21 份架構決策紀錄（ADR），加上誤報回饋迴路，GitLab label 會回流去修正 HOLD 的精確度，現在還有 replay harness 拿匯入的真實已合併 MR 來量。第一個正式 release 帶著 CI（go test -race、lint、Docker smoke 驗 HOLD/REVIEW/PROCEED）；任一 agent panic 或逾時，仲裁層一律 fail-closed 收成 REVIEW。已完成設計與完整測試；尚未接上真實流量。"
 order: 2
 ---
